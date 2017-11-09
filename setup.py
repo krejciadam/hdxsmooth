@@ -6,6 +6,7 @@ setup(
     version='0.1.0',
     author='Adam Krejci',
     author_email='krejciadam@gmail.com',
+    url='https://github.com/krejciadam/hdxsmooth',
     packages=['hdxsmooth'],
     scripts=['bin/hdxsmooth'],
     license='LICENSE.txt',
