@@ -21,14 +21,15 @@ def make_fragment_map(fragments, start=None, end=None):
     for position in range(start, end + 1):
         map[position] = []
     for fragment in fragments:
-        for pos in range(fragment.start, fragment.end + 1):
+        for pos in range(fragment.start + 1, fragment.end + 1): #start +1 because N-terminus is never deuterated
             map[pos].append(fragment)
     return map
 
+#frag.length() - 1 because N-terminal position does not count
 def position_deuteration(fragments):
-    tot_length = sum(frag.length() for frag in fragments)
-    deut = sum((tot_length / frag.length()) * frag.deuteration for frag in fragments) \
-           / sum(tot_length / frag.length() for frag in fragments)
+    tot_length = sum((frag.length() - 1) for frag in fragments)
+    deut = sum((tot_length / (frag.length() - 1)) * frag.deuteration for frag in fragments) \
+           / sum(tot_length / (frag.length() - 1) for frag in fragments)
     return deut
 
 def calculate_denaturation(fragments, start=None, end=None):

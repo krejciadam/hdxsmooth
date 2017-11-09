@@ -2,7 +2,7 @@
 Calculate per-position deuteration levels from HDX (hydrogen-deuterium exchange) data.
 
 ## Description:
-HDX data are measured per-fragment. This utility calculates the level of deuteration on each position of the protein. It uses deuteration levels of all the fragments. It also takes into the account the fact that C-termini of the fragments do not contribute to the fragments' deuteration levels.
+HDX data are measured per-fragment. This utility calculates the level of deuteration on each position of the protein. It uses deuteration levels of all the fragments. It also takes into the account the fact that N-termini of the fragments do not contribute to the fragments' deuteration levels.
 
 ## Installation:
     python3 setup.py build
