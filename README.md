@@ -9,7 +9,10 @@ HDX data are measured per-fragment. This utility calculates the level of deutera
     python3 setup.py install
 
 ## Synopsis:
-    hdxmooth -i <input_file> -o <output_file> -t <time>
+    hdxmooth -i <input_file> -o <output_file> [options]
+
+## Options:
+    -t --times : a comma-separated list of time points to process. Default: process all time points
 
 ## Input
 The software accepts .csv files in the protienPilot format, i.e. with these columns:
