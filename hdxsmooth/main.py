@@ -28,7 +28,9 @@ def main(argv):
         print("Error. Time not specified.")
         exit(2)
 
-    protein_frags, protein_names = io.load_fragment_file(infile, time)
-    res = [core.calculate_denaturation(frag_set) for frag_set in protein_frags]
-    io.write_result_table(outfile, res, protein_names, time)
+    fragments_map, protein_names = io.load_fragment_file(infile)
+    positions_map = {}
+    for time, protein_fragments in fragments_map.items():
+        positions_map[time] = [core.calculate_denaturation(frag_set) for frag_set in protein_fragments]
+    io.write_result_table(outfile, positions_map, protein_names)
 
