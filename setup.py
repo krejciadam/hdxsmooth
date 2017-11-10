@@ -3,9 +3,10 @@ from distutils.core import setup
 
 setup(
     name='HDXsmooth',
-    version='0.1.0',
+    version='0.2',
     author='Adam Krejci',
     author_email='krejciadam@gmail.com',
+    url='https://github.com/krejciadam/hdxsmooth',
     packages=['hdxsmooth'],
     scripts=['bin/hdxsmooth'],
     license='LICENSE.txt',
