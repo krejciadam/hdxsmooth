@@ -20,8 +20,6 @@ def load_fragment_file(path):
 
 
 def write_result_table(path, time_map, protein_names):
-    #if (len(results) != len(protein_names)):
-    #    raise ValueError('Different numbers of proteins and protein names ({}) and ({})'.format(len(results), len(protein_names)))
     header = ['Position', 'Time(sec)'] + protein_names
     with open(path, 'w') as file:
         writer = csv.writer(file)

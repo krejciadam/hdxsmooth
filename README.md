@@ -1,5 +1,7 @@
 # HDXsmooth
+###Version 0.2
 Calculate per-position deuteration levels from HDX (hydrogen-deuterium exchange) data.
+
 
 ## Description:
 HDX data are measured per-fragment. This utility calculates the level of deuteration on each position of the protein. It uses deuteration levels of all the fragments. It also takes into the account the fact that N-termini of the fragments do not contribute to the fragments' deuteration levels.
@@ -15,7 +17,10 @@ HDX data are measured per-fragment. This utility calculates the level of deutera
     -t --times : a comma-separated list of time points to process. Default: process all time points
 
 ## Input
-The software accepts .csv files in the protienPilot format, i.e. with these columns:
+The software accepts .csv files containing exactly these columns in this order:
 
-    From To Time Protein1_deut Protein2_deut ...
-all the protein deuteration columns will be included in the output.
+    From To Time Protein1_%deut Protein2_%deut ...
+Multiple protein deuteration percentage columns can be present. Their names will be used to name the corresponding columns in the output. Other columns can have arbitrary names.
+
+## Output
+The output is a .csv file in the protienPilot format, i.e. with these columns:
