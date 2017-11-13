@@ -23,8 +23,18 @@ def load_fragment_file(path, proline_positions = set([])):
                     positions = set(range(start + 1, end + 1)) #start + 1 because N-terminus does not count
                     positions = positions - proline_positions
                     protein_fragments[time][i].append(core.Fragment(positions, deuteration))
-
     return(protein_fragments, protein_names)
+
+def load_prolines_fasta(path):
+    sequence = ''
+    with open(path) as file:
+        lines = file.readlines()
+        for line in lines:
+            line = line.strip()
+            if not (line.startswith('>')):
+                sequence += line
+    return sequence
+
 
 
 def write_result_table(path, time_map, protein_names):
