@@ -5,9 +5,10 @@ from hdxsmooth import io, core
 def main(argv):
     infile = ''
     outfile = ''
+    sequence_file = None
     times = None
     try:
-        opts, args = getopt.getopt(argv, "i:o:t:", ["infile=", "outfile=", "times="])
+        opts, args = getopt.getopt(argv, "i:o:t:s:", ["infile=", "outfile=", "times=", "sequence="])
     except getopt.GetoptError:
         print('Error. Invalid arguments')
         sys.exit(1)
@@ -18,14 +19,22 @@ def main(argv):
             outfile = arg
         elif opt in ("-t", "--times"):
             times = map(int, arg.split(','))
+        elif opt in ("-s", "--sequence"):
+            sequence_file = arg
     if len(outfile) < 1:
         print("Error. Output file not specified.")
         sys.exit(1)
     if len(infile) < 1:
         print("Error. Input file not specified.")
         sys.exit(1)
-
-    fragments_map, protein_names = io.load_fragment_file(infile)
+    if (sequence_file is not None):
+        sequence = io.load_prolines_fasta(sequence_file)
+        proline_positions = set(core.find_prolines(sequence))
+        end = len(sequence)
+    else:
+        proline_positions = set([])
+        end = None
+    fragments_map, protein_names = io.load_fragment_file(infile, proline_positions, end)
     if times is None:
         times = fragments_map.keys()
     positions_map = {}
