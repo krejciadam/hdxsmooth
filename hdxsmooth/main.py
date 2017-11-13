@@ -34,7 +34,7 @@ def main(argv):
     else:
         proline_positions = set([])
         end = None
-    fragments_map, protein_names = io.load_fragment_file(infile, proline_positions)
+    fragments_map, protein_names = io.load_fragment_file(infile, proline_positions, end)
     if times is None:
         times = fragments_map.keys()
     positions_map = {}

@@ -33,5 +33,6 @@ def calculate_denaturation(fragments, start=1, end=None):
     map = make_fragment_map(fragments, start, end)
     return{key:position_deuteration(value) if value else 0 for key, value in map.items()}
 
+
 def find_prolines(seq):
     return [i for i, letter in enumerate(seq) if letter == 'P']
