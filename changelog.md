@@ -1,3 +1,10 @@
+## Version 0.3
+### 2017-11-14
+
+- Added .fasta input support and correction for prolines
+- Added changelog 
+- More error reports
+
 ## Version 0.2
 #### 2017-11-09
 
