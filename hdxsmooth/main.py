@@ -27,23 +27,33 @@ def main(argv):
     if len(infile) < 1:
         print("Error. Input file not specified.")
         sys.exit(1)
-    if (sequence_file is not None):
-        sequence = io.load_prolines_fasta(sequence_file)
-        proline_positions = set(core.find_prolines(sequence))
-        end = len(sequence)
-    else:
-        proline_positions = set([])
-        end = None
-    fragments_map, protein_names = io.load_fragment_file(infile, proline_positions, end)
-    if times is None:
-        times = fragments_map.keys()
-    positions_map = {}
-    for time in times:
-        try:
+    try:
+        if (sequence_file is not None):
+            sequence = io.load_prolines_fasta(sequence_file)
+            proline_positions = set(core.find_prolines(sequence))
+            end = len(sequence)
+        else:
+            proline_positions = set([])
+            end = None
+        fragments_map, protein_names = io.load_fragment_file(infile, proline_positions, end)
+        if times is None:
+            times = fragments_map.keys()
+        positions_map = {}
+        for time in times:
             positions_map[time] = [core.calculate_denaturation(frag_set) for frag_set in fragments_map[time]]
-        except KeyError as e:
-            print("Error. Time not defined in the data: {}".format(e))
-            sys.exit(1)
-    io.write_result_table(outfile, positions_map, protein_names)
+        io.write_result_table(outfile, positions_map, protein_names)
+    except KeyError as e:
+        print("Error. Time not defined in the data: {}".format(e))
+        sys.exit(1)
+    except FileNotFoundError as e:
+        print("Error. File not found: " + str(e))
+        sys.exit(1)
+    except ValueError as e:
+        print("Error while parsing input: " + str(e))
+        sys.exit(1)
+    except Exception as e:
+        print("Error :{}".format(e))
+        sys.exit(1)
+    sys.exit(0)
 
 

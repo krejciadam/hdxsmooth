@@ -1,5 +1,5 @@
 # HDXsmooth
-###Version 0.2
+### Version 0.3
 Calculate per-position deuteration levels from HDX (hydrogen-deuterium exchange) data.
 
 
