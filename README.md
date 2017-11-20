@@ -1,10 +1,12 @@
 # HDXsmooth
-### Version 0.3
+### Version 0.4
 Calculate per-position deuteration levels from HDX (hydrogen-deuterium exchange) data.
 
 
 ## Description:
-HDX data are measured per-fragment. This utility calculates the level of deuteration on each position of the protein. It uses deuteration levels of all the fragments. It also takes into the account the fact that N-termini of the fragments do not contribute to the fragments' deuteration levels.
+HDX data are measured per-fragment. This utility calculates the level of deuteration at each position of the protein.
+It uses deuteration levels of all the fragments. It also takes into the account the fact that N-termini of the
+fragments do not contribute to the deuteration levels, as well as proline residues.
 
 ## Installation:
     python3 setup.py build
@@ -15,13 +17,16 @@ HDX data are measured per-fragment. This utility calculates the level of deutera
 
 ## Options:
     -t --times <time1,time2,time3...>: a comma-separated list of time points to process. Default: process all time points
-    -s --sequence <file>: a fasta file containing the sequence of the protein measured. This serves to identify proline positions.
+    -p --protein <protein1,protein2,protein3...>: a comma-separated list of protein names to use. These must match input column names. Defautl: process all proteins
+    -d --delimiter <delimiter>: a delimiter to be used in both input and output .csv files. Default: comma (,)
 
 ## Input
 The software accepts .csv files containing exactly these columns in this order:
 
-    From To Time Protein1_%deut Protein2_%deut ...
-Multiple protein deuteration percentage columns can be present. Their names will be used to name the corresponding columns in the output. Other columns can have arbitrary names.
+    Protein,Start,End,Sequence,Deut Time (sec),maxD,#D,%D,Conf Interval (#D),#Pts,Confidence,Stddev,p
+Columns can have arbitrary names.
 
 ## Output
-The output is a .csv file in the protienPilot format, i.e. with these columns:
+The output is a .csv file with these columns:
+
+    Position,Time(sec),protein1,protein2,...

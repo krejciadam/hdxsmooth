@@ -1,3 +1,11 @@
+## Version 0.4
+### 2017-11-20
+
+- Now accepts input directly in the HDtool .csv format
+- Therefore, .fasta input is no longer supported (as no longer needed)
+- Automatic weighting assures correct per-position deuteration sums
+- Added custom .csv delimiter support
+
 ## Version 0.3
 ### 2017-11-14
 
