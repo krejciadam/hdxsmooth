@@ -5,7 +5,6 @@ from hdxsmooth import io, core
 def main(argv):
     infile = ''
     outfile = ''
-    sequence_file = None
     times = None
     try:
         opts, args = getopt.getopt(argv, "i:o:t:s:", ["infile=", "outfile=", "times=", "sequence="])
@@ -19,8 +18,6 @@ def main(argv):
             outfile = arg
         elif opt in ("-t", "--times"):
             times = map(int, arg.split(','))
-        elif opt in ("-s", "--sequence"):
-            sequence_file = arg
     if len(outfile) < 1:
         print("Error. Output file not specified.")
         sys.exit(1)
@@ -28,22 +25,17 @@ def main(argv):
         print("Error. Input file not specified.")
         sys.exit(1)
     try:
-        if (sequence_file is not None):
-            sequence = io.load_prolines_fasta(sequence_file)
-            proline_positions = set(core.find_prolines(sequence))
-            end = len(sequence)
-        else:
-            proline_positions = set([])
-            end = None
-        fragments_map, protein_names = io.load_fragment_file(infile, proline_positions, end)
+        fragments_map, protein_names, proline_positions = io.load_csv_input(infile)
         if times is None:
             times = fragments_map.keys()
         positions_map = {}
         for time in times:
             positions_map[time] = []
-            for frag_set in fragments_map[time]:
+            for protein in protein_names:
+                frag_set = fragments_map[time][protein]
                 result = core.calculate_denaturation(frag_set)
                 factor = core.get_scaling_factor(frag_set, result)
+                print('{} {} {}'.format(time, protein, factor))
                 result = {key:value * factor for key, value in result.items()}
                 positions_map[time].append(result)
         io.write_result_table(outfile, positions_map, protein_names)

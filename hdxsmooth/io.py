@@ -4,6 +4,7 @@ from hdxsmooth import core
 
 def load_csv_input(path):
     protein_fragments = {}
+    protein_names = []
     proline_positions = set()
     with open(path, newline=None) as file:
         next(file, None)  # skip header
@@ -16,6 +17,8 @@ def load_csv_input(path):
                     proline_positions.add(start + i)
                     if i > 0:
                         del(positions[i - 1])
+            if protein not in protein_names:
+                protein_names.append(protein)
             fragment = core.Fragment(positions, deut)
             if time not in protein_fragments.keys():
                 protein_fragments[time] = {protein:[fragment]}
@@ -23,7 +26,7 @@ def load_csv_input(path):
                 protein_fragments[time][protein] = [fragment]
             else:
                 protein_fragments[time][protein].append(fragment)
-    return protein_fragments
+    return protein_fragments, protein_names, proline_positions
 
 
 
