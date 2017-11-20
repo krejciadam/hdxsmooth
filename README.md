@@ -18,6 +18,7 @@ fragments do not contribute to the deuteration levels, as well as proline residu
 ## Options:
     -t --times <time1,time2,time3...>: a comma-separated list of time points to process. Default: process all time points
     -p --protein <protein1,protein2,protein3...>: a comma-separated list of protein names to use. These must match input column names. Defautl: process all proteins
+    -d --delimiter <delimiter>: a delimiter to be used in both input and output .csv files. Default: comma (,)
 
 ## Input
 The software accepts .csv files containing exactly these columns in this order:
