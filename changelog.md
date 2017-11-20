@@ -1,4 +1,5 @@
 ## Version 0.4
+### 2017-11-20
 
 - Now accepts input directly in the HDtool .csv format
 - Therefore, .fasta input is no longer supported (as no longer needed)

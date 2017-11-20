@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='HDXsmooth',
-    version='0.3',
+    version='0.4',
     author='Adam Krejci',
     author_email='krejciadam@gmail.com',
     url='https://github.com/krejciadam/hdxsmooth',
