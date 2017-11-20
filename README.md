@@ -15,7 +15,7 @@ HDX data are measured per-fragment. This utility calculates the level of deutera
 
 ## Options:
     -t --times <time1,time2,time3...>: a comma-separated list of time points to process. Default: process all time points
-    -s --sequence <file>: a fasta file containing the sequence of the protein measured. This serves to identify proline positions.
+    -p --protein <protein1,protein2,protein3...>: a comma-separated list of protein names to use. These must match input column names. Defautl: process all proteins
 
 ## Input
 The software accepts .csv files containing exactly these columns in this order:
