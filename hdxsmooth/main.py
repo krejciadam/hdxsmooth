@@ -40,7 +40,12 @@ def main(argv):
             times = fragments_map.keys()
         positions_map = {}
         for time in times:
-            positions_map[time] = [core.calculate_denaturation(frag_set) for frag_set in fragments_map[time]]
+            positions_map[time] = []
+            for frag_set in fragments_map[time]:
+                result = core.calculate_denaturation(frag_set)
+                factor = core.get_scaling_factor(frag_set, result)
+                result = {key:value * factor for key, value in result.items()}
+                positions_map[time].append(result)
         io.write_result_table(outfile, positions_map, protein_names)
     except KeyError as e:
         print("Error. Time not defined in the data: {}".format(e))

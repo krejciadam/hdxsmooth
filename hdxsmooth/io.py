@@ -6,12 +6,12 @@ def load_fragment_file(path, proline_positions = set([]), protein_end=None):
     with open(path, newline='') as file:
         reader = csv.reader(file, delimiter=';', quoting=csv.QUOTE_NONE)
         for i, row in enumerate(reader):
-            if (i == 0): #header
+            if i == 0: #header
                 protein_names = row[3:]
                 protein_fragments = {}
             else:
                 time = int(row[2])
-                if (time not in protein_fragments.keys()):
+                if time not in protein_fragments.keys():
                     protein_fragments[time] = [[] for _ in protein_names]
                 for i in range(len(protein_names)):
                     start, end = int(row[0]), int(row[1])
