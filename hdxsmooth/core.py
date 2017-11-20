@@ -35,10 +35,6 @@ def calculate_denaturation(fragments, start=1, end=None):
     return{key:position_deuteration(value) if value else 0 for key, value in map.items()}
 
 
-def find_prolines(seq):
-    return [i for i, letter in enumerate(seq) if letter == 'P']
-
-
 def get_scaling_factor(fragments, res_map):
     original_length = sum([fragment.effective_length() for fragment in fragments])
     original_deuteration = sum([fragment.deuteration * fragment.effective_length() for fragment in fragments])

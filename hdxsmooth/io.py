@@ -29,44 +29,6 @@ def load_csv_input(path):
     return protein_fragments, protein_names, proline_positions
 
 
-
-def load_fragment_file(path, proline_positions = set([]), protein_end=None):
-    with open(path, newline=None) as file:
-        reader = csv.reader(file, delimiter=';', quoting=csv.QUOTE_NONE)
-        for i, row in enumerate(reader):
-            if i == 0: #header
-                protein_names = row[3:]
-                protein_fragments = {}
-            else:
-                time = int(row[2])
-                if time not in protein_fragments.keys():
-                    protein_fragments[time] = [[] for _ in protein_names]
-                for i in range(len(protein_names)):
-                    start, end = int(row[0]), int(row[1])
-                    deuteration = float(row[i + 3])
-                    if deuteration < 0:
-                        raise ValueError('Negative deuteration level ({})'.format(deuteration))
-                    if start >= end:
-                        raise ValueError('Fragment start ({}) is greater than end ({})'.format(start, end))
-                    if protein_end is not None and end > protein_end:
-                        raise ValueError('Fragment end ({}) is greater than total protein length ({})'.format(end, protein_end))
-                    positions = set(range(start + 1, end + 1)) #start + 1 because N-terminus does not count
-                    positions = positions - proline_positions
-                    protein_fragments[time][i].append(core.Fragment(positions, deuteration))
-    return(protein_fragments, protein_names)
-
-
-def load_prolines_fasta(path):
-    sequence = ''
-    with open(path) as file:
-        lines = file.readlines()
-        for line in lines:
-            line = line.strip()
-            if not (line.startswith('>')):
-                sequence += line
-    return sequence
-
-
 def write_result_table(path, time_map, protein_names):
     header = ['Position', 'Time(sec)'] + protein_names
     with open(path, 'w') as file:
