@@ -1,6 +1,7 @@
 import sys, getopt
 from hdxsmooth import io, core
 
+delimiter = ','
 
 def main(argv):
     infile = ''
@@ -8,7 +9,7 @@ def main(argv):
     times = None
     protein_names = None
     try:
-        opts, args = getopt.getopt(argv, "i:o:t:p:", ["infile=", "outfile=", "times=", "proteins="])
+        opts, args = getopt.getopt(argv, "i:o:t:p:d:", ["infile=", "outfile=", "times=", "proteins=", "delimiter="])
     except getopt.GetoptError:
         print('Error. Invalid arguments')
         sys.exit(1)
@@ -21,6 +22,10 @@ def main(argv):
             times = map(int, arg.split(','))
         elif opt in ("-p", "--proteins"):
             protein_names = arg.split(',')
+        elif opt in ("-d", "--delimiter"):
+            global delimiter
+            delimiter = arg.strip()
+
     if len(outfile) < 1:
         print("Error. Output file not specified.")
         sys.exit(1)
@@ -52,9 +57,9 @@ def main(argv):
     except ValueError as e:
         print("Error while parsing input: " + str(e))
         sys.exit(1)
-    except Exception as e:
-        print("Error :{}".format(e))
-        sys.exit(1)
+#    except Exception as e:
+#        print("Error :{}".format(e))
+#        sys.exit(1)
     sys.exit(0)
 
 
